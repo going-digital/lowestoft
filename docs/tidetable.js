@@ -51,28 +51,28 @@ for (var day = 0; day < 14; day++) {
         date: sunTimes.dawn,
         start: sunTimes.dawn,
         end: sunTimes.dawn,
-        type: "Dawn",
+        type: "🌃 Dawn",
         bearing: SunCalc.getPosition(sunTimes.dawn, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.sunrise,
         start: sunTimes.sunrise,
         end: sunTimes.sunriseEnd,
-        type: "Sunrise",
+        type: "🌅 Sunrise",
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.goldenHour,
         start: sunTimes.goldenHour,
         end: sunTimes.goldenHourEnd,
-        type: "Golden hour",
+        type: "🌆 Golden hour",
         bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.sunsetStart,
         start: sunTimes.sunsetStart,
         end: sunTimes.sunset,
-        type: "Sunset",
+        type: "🌇 Sunset",
         bearing: SunCalc.getPosition(sunTimes.sunsetStart, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     var moonTimes = SunCalc.getMoonTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
