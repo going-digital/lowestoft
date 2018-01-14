@@ -5,16 +5,22 @@ var lowestoft_gps = [52.481220, 1.762786];
 /* Get list of astronomical events */
 var eventsList = []
 
-function moon_illumination_ascii(a) {
+
+function moon_phase_emoji(a) {
     return [
-        "\u{1F311} New moon",
-        "\u{1F312} Waxing Crescent",
-        "\u{1F313} First Quarter",
-        "\u{1F314} Waxing Gibbous",
-        "\u{1F315} Full moon",
-        "\u{1F316} Waning Gibbous",
-        "\u{1F317} Last Quarter",
-        "\u{1F318} Waning Crescent"
+        "\u{1F311}", "\u{1F312}",
+        "\u{1F313}", "\u{1F314}",
+        "\u{1F315}", "\u{1F316}",
+        "\u{1F317}", "\u{1F318}"
+    ][Math.floor(a.phase * 8)];
+}
+
+function moon_phase_ascii(a) {
+    return [
+        "New moon", "Waxing Crescent",
+        "First Quarter", "Waxing Gibbous",
+        "Full moon", "Waning Gibbous",
+        "Last Quarter", "Waning Crescent"
     ][Math.floor(a.phase * 8)];
 }
 
@@ -83,7 +89,7 @@ for (var day = 0; day < 14; day++) {
             date: moonTimes.rise,
             start: moonTimes.rise,
             end: moonTimes.rise,
-            type: "Moonrise "+moon_illumination_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
+            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.rise)) + "\u{1F53C} Moonrise "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
             bearing: SunCalc.getMoonPosition(moonTimes.rise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
@@ -94,7 +100,7 @@ for (var day = 0; day < 14; day++) {
             date: moonTimes.set,
             start: moonTimes.set,
             end: moonTimes.set,
-            type: "Moonset "+moon_illumination_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
+            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.set)) + "\u{1F53D} Moonset "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
             bearing: SunCalc.getMoonPosition(moonTimes.set, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
