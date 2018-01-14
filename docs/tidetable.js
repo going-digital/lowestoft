@@ -48,8 +48,15 @@ for (var day = 0; day < 14; day++) {
     startDate.setDate(startDate.getDate() + 1);
     var sunTimes = SunCalc.getTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
     eventsList.push({
-        date: sunTimes.sunrise,
+        date: sunTimes.dawn,
         start: sunTimes.dawn,
+        end: sunTimes.dawn,
+        type: "Dawn",
+        bearing: SunCalc.getPosition(sunTimes.dawn, lowestoft_gps[0], lowestoft_gps[1]).azimuth
+    });
+    eventsList.push({
+        date: sunTimes.sunrise,
+        start: sunTimes.sunrise,
         end: sunTimes.sunriseEnd,
         type: "Sunrise",
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
@@ -58,8 +65,15 @@ for (var day = 0; day < 14; day++) {
         date: sunTimes.goldenHour,
         start: sunTimes.goldenHour,
         end: sunTimes.goldenHourEnd,
+        type: "Golden hour",
+        bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
+    });
+    eventsList.push({
+        date: sunTimes.sunsetStart,
+        start: sunTimes.sunsetStart,
+        end: sunTimes.sunset,
         type: "Sunset",
-        bearing: SunCalc.getPosition(sunTimes.sunset, lowestoft_gps[0], lowestoft_gps[1]).azimuth
+        bearing: SunCalc.getPosition(sunTimes.sunsetStart, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     var moonTimes = SunCalc.getMoonTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
     if (moonTimes.rise) {
@@ -80,7 +94,7 @@ for (var day = 0; day < 14; day++) {
             date: moonTimes.set,
             start: moonTimes.set,
             end: moonTimes.set,
-            type: "Moonset at azimuth "+moon_illumination_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
+            type: "Moonset "+moon_illumination_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
             bearing: SunCalc.getMoonPosition(moonTimes.set, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
