@@ -1,5 +1,5 @@
 var SunCalc = require('suncalc');
-var lowestoft_gps = [52.4811, 1.7534]
+var lowestoft_gps = [52.481220, 1.762786];
 
 /* Get list of astronomical events */
 var eventsList = []
