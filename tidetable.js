@@ -7,10 +7,10 @@ var eventsList = []
 
 function moon_phase_emoji(a) {
     return [
-        "\u{1F311}", "\u{1F312}",
-        "\u{1F313}", "\u{1F314}",
-        "\u{1F315}", "\u{1F316}",
-        "\u{1F317}", "\u{1F318}"
+        "\uD83C\uDF11", "\uD83C\uDF12",
+        "\uD83C\uDF13", "\uD83C\uDF14",
+        "\uD83C\uDF15", "\uD83C\uDF16",
+        "\uD83C\uDF17", "\uD83C\uDF18"
     ][Math.floor(a.phase * 8)];
 }
 
@@ -56,28 +56,28 @@ for (var day = 0; day < 14; day++) {
         date: sunTimes.dawn,
         start: sunTimes.dawn,
         end: sunTimes.dawn,
-        type: "🌃 Dawn",
+        type: "\uD83C\uDF03 Dawn",
         bearing: SunCalc.getPosition(sunTimes.dawn, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.sunrise,
         start: sunTimes.sunrise,
         end: sunTimes.sunriseEnd,
-        type: "🌅 Sunrise",
+        type: "\uD83C\uDF05 Sunrise",
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.goldenHour,
         start: sunTimes.goldenHour,
         end: sunTimes.goldenHourEnd,
-        type: "🌆 Golden hour",
+        type: "\uD83C\uDF06 Golden hour",
         bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.sunsetStart,
         start: sunTimes.sunsetStart,
         end: sunTimes.sunset,
-        type: "🌇 Sunset",
+        type: "\uD83C\uDF07 Sunset",
         bearing: SunCalc.getPosition(sunTimes.sunsetStart, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     var moonTimes = SunCalc.getMoonTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
@@ -88,7 +88,7 @@ for (var day = 0; day < 14; day++) {
             date: moonTimes.rise,
             start: moonTimes.rise,
             end: moonTimes.rise,
-            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.rise)) + "\u{1F53C} Moonrise "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
+            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.rise)) + "\uD83D\uDD3C Moonrise "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
             bearing: SunCalc.getMoonPosition(moonTimes.rise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
@@ -99,7 +99,7 @@ for (var day = 0; day < 14; day++) {
             date: moonTimes.set,
             start: moonTimes.set,
             end: moonTimes.set,
-            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.set)) + "\u{1F53D} Moonset "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
+            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.set)) + "\uD83D\uDD3D Moonset "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
             bearing: SunCalc.getMoonPosition(moonTimes.set, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
