@@ -107,7 +107,9 @@ for (var day = 0; day < 14; day++) {
 }
 
 /* Sort list of events */
-eventsList.sort(function (a, b){ return a.date > b.date; });
+eventsList.sort(function (a, b){
+    return a.date > b.date ? 1 : -1;
+});
 
 /* Inject table into page */
 var almanac = document.getElementById('almanac');
