@@ -71,7 +71,7 @@ for (var day = 0; day < 14; day++) {
         start: sunTimes.sunriseEnd,
         end: sunTimes.goldenHourEnd,
         type: "\uD83C\uDF06 Golden hour",
-        bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
+        bearing: SunCalc.getPosition(sunTimes.sunriseEnd, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.goldenHour,
