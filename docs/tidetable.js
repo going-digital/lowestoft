@@ -68,9 +68,16 @@ for (var day = 0; day < 14; day++) {
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
+        date: sunTimes.sunriseEnd,
+        start: sunTimes.sunriseEnd,
+        end: sunTimes.goldenHourEnd,
+        type: "\uD83C\uDF06 Golden hour",
+        bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
+    });
+    eventsList.push({
         date: sunTimes.goldenHour,
         start: sunTimes.goldenHour,
-        end: sunTimes.goldenHourEnd,
+        end: sunTimes.sunsetStart,
         type: "\uD83C\uDF06 Golden hour",
         bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
