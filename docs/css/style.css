@@ -10,7 +10,7 @@ table.blueTable {
     padding: 3px 2px;
   }
   table.blueTable tbody td {
-    font-size: 13px;
+    font-size: 15px;
   }
   table.blueTable tr:nth-child(even) {
     background: #D0E4F5;

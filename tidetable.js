@@ -1,4 +1,5 @@
 var SunCalc = require('suncalc');
+var moment = require('moment');
 var lowestoft_gps = [52.481220, 1.762786];
 
 /* Get list of astronomical events */
@@ -70,18 +71,18 @@ function euroscope_ascii(n) {
     return euroscope_string;
 }
 
-var startDate = new Date();
+var startDate = moment();
 for (var day = 0; day < 28; day++) {
     var sunTimes = SunCalc.getTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
     eventsList.push({
         date: sunTimes.sunrise,
-        start: sunTimes.sunrise.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+        start: moment(sunTimes.sunrise).format("HH:mm"),
         type: "<i class='wi wi-sunrise'></i>",
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
         date: sunTimes.sunsetStart,
-        start: sunTimes.sunsetStart.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+        start: moment(sunTimes.sunsetStart).format("HH:mm"),
         type: "<i class='wi wi-sunset'></i>",
         bearing: SunCalc.getPosition(sunTimes.sunsetStart, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
@@ -91,7 +92,7 @@ for (var day = 0; day < 28; day++) {
         moonIllumination = SunCalc.getMoonIllumination(moonTimes.rise);
         eventsList.push({
             date: moonTimes.rise,
-            start: moonTimes.rise.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+            start: moment(moonTimes.rise).format("HH:mm"),
             type: "<i class='wi wi-moonrise'></i>"+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
             bearing: SunCalc.getMoonPosition(moonTimes.rise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
@@ -101,12 +102,12 @@ for (var day = 0; day < 28; day++) {
         moonIllumination = SunCalc.getMoonIllumination(moonTimes.set);
         eventsList.push({
             date: moonTimes.set,
-            start: moonTimes.set.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+            start: moment(moonTimes.set).format("HH:mm"),
             type: "<i class='wi wi-moonset'></i>"+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
             bearing: SunCalc.getMoonPosition(moonTimes.set, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
-    startDate.setDate(startDate.getDate() + 1);
+    startDate.add(1, 'd');
 }
 
 /* Sort list of events */
@@ -119,7 +120,7 @@ var almanac = document.getElementById('almanac');
 for (var i = 0; i < eventsList.length; i++) {
     var j = eventsList[i];
     var row = document.createElement('tr');
-    var cell_text = document.createTextNode(j.date.toLocaleDateString());
+    var cell_text = document.createTextNode(moment(j.date).format("Do MMM"));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
