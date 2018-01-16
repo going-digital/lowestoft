@@ -50,7 +50,7 @@ function euroscope_ascii(n) {
 }
 
 var startDate = new Date();
-startDate.setDate(startData.getDate() - 1);
+startDate.setDate(startDate.getDate() - 1);
 for (var day = 0; day < 14; day++) {
     startDate.setDate(startDate.getDate() + 1);
     var sunTimes = SunCalc.getTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
