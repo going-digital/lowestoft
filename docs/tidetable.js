@@ -5,29 +5,43 @@ var lowestoft_gps = [52.481220, 1.762786];
 /* Get list of astronomical events */
 var eventsList = []
 
-
-function moon_phase_emoji(a) {
-    return [
-        "\uD83C\uDF11", "\uD83C\uDF12",
-        "\uD83C\uDF13", "\uD83C\uDF14",
-        "\uD83C\uDF15", "\uD83C\uDF16",
-        "\uD83C\uDF17", "\uD83C\uDF18"
-    ][Math.floor(a.phase * 8)];
-}
-
 function moon_phase_ascii(a) {
-    return [
-        "New moon", "Waxing Crescent",
-        "First Quarter", "Waxing Gibbous",
-        "Full moon", "Waning Gibbous",
-        "Last Quarter", "Waning Crescent"
-    ][Math.floor(a.phase * 8)];
+    return " <i class='wi "+[
+        "wi-moon-alt-new",
+        "wi-moon-alt-waxing-crescent-1",
+        "wi-moon-alt-waxing-crescent-2",
+        "wi-moon-alt-waxing-crescent-3",
+        "wi-moon-alt-waxing-crescent-4",
+        "wi-moon-alt-waxing-crescent-5",
+        "wi-moon-alt-waxing-crescent-6",
+        "wi-moon-alt-first-quarter",
+        "wi-moon-alt-waxing-gibbous-1",
+        "wi-moon-alt-waxing-gibbous-2",
+        "wi-moon-alt-waxing-gibbous-3",
+        "wi-moon-alt-waxing-gibbous-4",
+        "wi-moon-alt-waxing-gibbous-5",
+        "wi-moon-alt-waxing-gibbous-6",
+        "wi-moon-alt-full",
+        "wi-moon-alt-waning-gibbous-1",
+        "wi-moon-alt-waning-gibbous-2",
+        "wi-moon-alt-waning-gibbous-3",
+        "wi-moon-alt-waning-gibbous-4",
+        "wi-moon-alt-waning-gibbous-5",
+        "wi-moon-alt-waning-gibbous-6",
+        "wi-moon-alt-third-quarter",
+        "wi-moon-alt-waning-crescent-1",
+        "wi-moon-alt-waning-crescent-2",
+        "wi-moon-alt-waning-crescent-3",
+        "wi-moon-alt-waning-crescent-4",
+        "wi-moon-alt-waning-crescent-5",
+        "wi-moon-alt-waning-crescent-6"
+    ][Math.floor(a.phase * 28)]+"'></i>";
 }
 
 function bearing_ascii(n) {
     n = n * 180 / Math.PI;
     n = (n + 180) % 360
-    bearing_string = ("000"+Math.round(n).toString()).slice(-3)+"°";
+    bearing_string = ("000"+Math.round(n).toString()).slice(-3)+"&deg;";
     return bearing_string;
 }
 
@@ -35,14 +49,22 @@ function euroscope_ascii(n) {
     n = n * 180 / Math.PI;
     n = (n + 180) % 360
     euroscope_string = [
-        "NORTH", "N½E",  "NʙʏE",  "NʙʏE½E",  "NNE", "NNE½E", "NEʙʏN", "NEʙʏN½E",
-        "NE",    "NE½E", "NEʙʏE", "NEʙʏE½E", "ENE", "ENE½E", "EʙʏN",  "EʙʏN½E",
-        "EAST",  "E½S",  "EʙʏS",  "EʙʏS½S",  "ESE", "ESE½S", "SEʙʏE", "SEʙʏE½S",
-        "SE",    "SE½S", "SEʙʏS", "SEʙʏS½S", "SSE", "SSE½S", "SʙʏE",  "SʙʏE½S",
-        "SOUTH", "S½W",  "SʙʏW",  "SʙʏW½W",  "SSW", "SSW½W", "SWʙʏS", "SWʙʏS½W",
-        "SW",    "SW½W", "SWʙʏW", "SWʙʏW½W", "WSW", "WSW½W", "WʙʏS",  "WʙʏS½W",
-        "WEST",  "W½N",  "WʙʏN",  "WʙʏN½N",  "WNW", "WNW½N", "NWʙʏW", "NWʙʏW½N",
-        "NW",    "NW½N", "NWʙʏN", "NWʙʏN½N", "NNW", "NNW½N", "NʙʏW",  "NʙʏW½N"
+        "NORTH", "N&frac12;E",  "N&#665;&#655;E",  "N&#665;&#655;E&frac12;E",
+        "NNE", "NNE&frac12;E", "NE&#665;&#655;N", "NE&#665;&#655;N&frac12;E",
+        "NE",    "NE&frac12;E", "NE&#665;&#655;E", "NE&#665;&#655;E&frac12;E",
+        "ENE", "ENE&frac12;E", "E&#665;&#655;N",  "E&#665;&#655;N&frac12;E",
+        "EAST",  "E&frac12;S",  "E&#665;&#655;S",  "E&#665;&#655;S&frac12;S",
+        "ESE", "ESE&frac12;S", "SE&#665;&#655;E", "SE&#665;&#655;E&frac12;S",
+        "SE",    "SE&frac12;S", "SE&#665;&#655;S", "SE&#665;&#655;S&frac12;S",
+        "SSE", "SSE&frac12;S", "S&#665;&#655;E",  "S&#665;&#655;E&frac12;S",
+        "SOUTH", "S&frac12;W",  "S&#665;&#655;W",  "S&#665;&#655;W&frac12;W",
+        "SSW", "SSW&frac12;W", "SW&#665;&#655;S", "SW&#665;&#655;S&frac12;W",
+        "SW",    "SW&frac12;W", "SW&#665;&#655;W", "SW&#665;&#655;W&frac12;W",
+        "WSW", "WSW&frac12;W", "W&#665;&#655;S",  "W&#665;&#655;S&frac12;W",
+        "WEST",  "W&frac12;N",  "W&#665;&#655;N",  "W&#665;&#655;N&frac12;N",
+        "WNW", "WNW&frac12;N", "NW&#665;&#655;W", "NW&#665;&#655;W&frac12;N",
+        "NW",    "NW&frac12;N", "NW&#665;&#655;N", "NW&#665;&#655;N&frac12;N",
+        "NNW", "NNW&frac12;N", "N&#665;&#655;W",  "N&#665;&#655;W&frac12;N"
     ][
         Math.round((n/5.625) % 64)
     ];
@@ -50,41 +72,18 @@ function euroscope_ascii(n) {
 }
 
 var startDate = new Date();
-for (var day = 0; day < 14; day++) {
+for (var day = 0; day < 28; day++) {
     var sunTimes = SunCalc.getTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
     eventsList.push({
-        date: sunTimes.dawn,
-        start: sunTimes.dawn,
-        end: sunTimes.dawn,
-        type: "\uD83C\uDF03 Dawn",
-        bearing: SunCalc.getPosition(sunTimes.dawn, lowestoft_gps[0], lowestoft_gps[1]).azimuth
-    });
-    eventsList.push({
         date: sunTimes.sunrise,
-        start: sunTimes.sunrise,
-        end: sunTimes.sunriseEnd,
-        type: "\uD83C\uDF05 Sunrise",
+        start: sunTimes.sunrise.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+        type: "<i class='wi wi-sunrise'></i>",
         bearing: SunCalc.getPosition(sunTimes.sunrise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     eventsList.push({
-        date: sunTimes.sunriseEnd,
-        start: sunTimes.sunriseEnd,
-        end: sunTimes.goldenHourEnd,
-        type: "\uD83C\uDF06 Golden hour",
-        bearing: SunCalc.getPosition(sunTimes.sunriseEnd, lowestoft_gps[0], lowestoft_gps[1]).azimuth
-    });
-    eventsList.push({
-        date: sunTimes.goldenHour,
-        start: sunTimes.goldenHour,
-        end: sunTimes.sunsetStart,
-        type: "\uD83C\uDF06 Golden hour",
-        bearing: SunCalc.getPosition(sunTimes.goldenHour, lowestoft_gps[0], lowestoft_gps[1]).azimuth
-    });
-    eventsList.push({
         date: sunTimes.sunsetStart,
-        start: sunTimes.sunsetStart,
-        end: sunTimes.sunset,
-        type: "\uD83C\uDF07 Sunset",
+        start: sunTimes.sunsetStart.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+        type: "<i class='wi wi-sunset'></i>",
         bearing: SunCalc.getPosition(sunTimes.sunsetStart, lowestoft_gps[0], lowestoft_gps[1]).azimuth
     });
     var moonTimes = SunCalc.getMoonTimes(startDate, lowestoft_gps[0], lowestoft_gps[1]);
@@ -93,9 +92,8 @@ for (var day = 0; day < 14; day++) {
         moonIllumination = SunCalc.getMoonIllumination(moonTimes.rise);
         eventsList.push({
             date: moonTimes.rise,
-            start: moonTimes.rise,
-            end: moonTimes.rise,
-            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.rise)) + "\uD83D\uDD3C Moonrise "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
+            start: moonTimes.rise.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+            type: "<i class='wi wi-moonrise'></i>"+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.rise)),
             bearing: SunCalc.getMoonPosition(moonTimes.rise, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
@@ -104,9 +102,8 @@ for (var day = 0; day < 14; day++) {
         moonIllumination = SunCalc.getMoonIllumination(moonTimes.set);
         eventsList.push({
             date: moonTimes.set,
-            start: moonTimes.set,
-            end: moonTimes.set,
-            type: moon_phase_emoji(SunCalc.getMoonIllumination(moonTimes.set)) + "\uD83D\uDD3D Moonset "+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
+            start: moonTimes.set.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}),
+            type: "<i class='wi wi-moonset'></i>"+moon_phase_ascii(SunCalc.getMoonIllumination(moonTimes.set)),
             bearing: SunCalc.getMoonPosition(moonTimes.set, lowestoft_gps[0], lowestoft_gps[1]).azimuth
         })
     }
@@ -127,23 +124,19 @@ for (var i = 0; i < eventsList.length; i++) {
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
-    var cell_text = document.createTextNode(j.start.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}));
+    var cell_text = document.createTextNode(j.start);
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
-    var cell_text = document.createTextNode(j.end.toLocaleTimeString({hour: '2-digit', minute:'2-digit'}));
+    var cell_text = document.createRange().createContextualFragment(j.type);
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
-    var cell_text = document.createTextNode(j.type);
+    var cell_text = document.createRange().createContextualFragment(bearing_ascii(j.bearing));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
-    var cell_text = document.createTextNode(bearing_ascii(j.bearing));
-    var cell = document.createElement('td');
-    cell.appendChild(cell_text);
-    row.appendChild(cell);
-    var cell_text = document.createTextNode(euroscope_ascii(j.bearing));
+    var cell_text = document.createRange().createContextualFragment(euroscope_ascii(j.bearing));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
