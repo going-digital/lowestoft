@@ -8,47 +8,41 @@ var eventsList = []
 
 function moon_phase_ascii(a) {
     return " <i class='wi "+[
-        "wi-moon-alt-new",
-        "wi-moon-alt-waxing-crescent-1",
-        "wi-moon-alt-waxing-crescent-2",
-        "wi-moon-alt-waxing-crescent-3",
-        "wi-moon-alt-waxing-crescent-4",
-        "wi-moon-alt-waxing-crescent-5",
-        "wi-moon-alt-waxing-crescent-6",
-        "wi-moon-alt-first-quarter",
-        "wi-moon-alt-waxing-gibbous-1",
-        "wi-moon-alt-waxing-gibbous-2",
-        "wi-moon-alt-waxing-gibbous-3",
-        "wi-moon-alt-waxing-gibbous-4",
-        "wi-moon-alt-waxing-gibbous-5",
-        "wi-moon-alt-waxing-gibbous-6",
-        "wi-moon-alt-full",
-        "wi-moon-alt-waning-gibbous-1",
-        "wi-moon-alt-waning-gibbous-2",
-        "wi-moon-alt-waning-gibbous-3",
-        "wi-moon-alt-waning-gibbous-4",
-        "wi-moon-alt-waning-gibbous-5",
-        "wi-moon-alt-waning-gibbous-6",
-        "wi-moon-alt-third-quarter",
-        "wi-moon-alt-waning-crescent-1",
-        "wi-moon-alt-waning-crescent-2",
-        "wi-moon-alt-waning-crescent-3",
-        "wi-moon-alt-waning-crescent-4",
-        "wi-moon-alt-waning-crescent-5",
-        "wi-moon-alt-waning-crescent-6"
-    ][Math.floor(a.phase * 28)]+"'></i>";
+        "wi-moon-new",
+        "wi-moon-waxing-crescent-1", "wi-moon-waxing-crescent-2",
+        "wi-moon-waxing-crescent-3", "wi-moon-waxing-crescent-4",
+        "wi-moon-waxing-crescent-5", "wi-moon-waxing-crescent-6",
+        "wi-moon-first-quarter",
+        "wi-moon-waxing-gibbous-1", "wi-moon-waxing-gibbous-2",
+        "wi-moon-waxing-gibbous-3", "wi-moon-waxing-gibbous-4",
+        "wi-moon-waxing-gibbous-5", "wi-moon-waxing-gibbous-6",
+        "wi-moon-full",
+        "wi-moon-waning-gibbous-1", "wi-moon-waning-gibbous-2",
+        "wi-moon-waning-gibbous-3", "wi-moon-waning-gibbous-4",
+        "wi-moon-waning-gibbous-5", "wi-moon-waning-gibbous-6",
+        "wi-moon-third-quarter",
+        "wi-moon-waning-crescent-1", "wi-moon-waning-crescent-2",
+        "wi-moon-waning-crescent-3", "wi-moon-waning-crescent-4",
+        "wi-moon-waning-crescent-5", "wi-moon-waning-crescent-6"
+    ][Math.floor(a.phase * 28)]+"' moon></i>";
 }
 
 function bearing_ascii(n) {
     n = n * 180 / Math.PI;
-    n = (n + 180) % 360
+    n = (n + 180) % 360;
     bearing_string = ("000"+Math.round(n).toString()).slice(-3)+"&deg;";
     return bearing_string;
 }
 
+function bearing_symbol(n) {
+    n = n * 180 / Math.PI;
+    n = (Math.round(n) + 180) % 360;
+    return "<i class='wi wi-wind towards-"+n+"-deg'></i>";
+}
+
 function euroscope_ascii(n) {
     n = n * 180 / Math.PI;
-    n = (n + 180) % 360
+    n = (n + 180) % 360;
     euroscope_string = [
         "NORTH", "N&frac12;E",  "N&#665;&#655;E",  "N&#665;&#655;E&frac12;E",
         "NNE", "NNE&frac12;E", "NE&#665;&#655;N", "NE&#665;&#655;N&frac12;E",
@@ -116,11 +110,25 @@ eventsList.sort(function (a, b){
     return a.date > b.date ? 1 : -1;
 });
 
+function ambient_theme(t) {
+    var sun_angle = SunCalc.getPosition(t, lowestoft_gps[0], lowestoft_gps[1]).altitude;
+    sun_angle *= 180 / Math.PI;
+    if (sun_angle < -18) return 'night';
+    if (sun_angle < -12) return 'astro_twilight';
+    if (sun_angle < -6) return 'nautical_twilight';
+    if (sun_angle < -0.833) return 'civil_twilight';
+    if (sun_angle < -0.3)  return 'sunrise';
+    if (sun_angle < 6) return 'golden_hour';
+    return 'day';
+}
+
 /* Inject table into page */
 var almanac = document.getElementById('almanac');
 for (var i = 0; i < eventsList.length; i++) {
     var j = eventsList[i];
+
     var row = document.createElement('tr');
+    row.setAttribute('tod', ambient_theme(j.date));
     var cell_text = document.createTextNode(moment(j.date).format("Do MMM"));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
@@ -129,14 +137,22 @@ for (var i = 0; i < eventsList.length; i++) {
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
+
     var cell_text = document.createRange().createContextualFragment(j.type);
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
+
+    var cell_text = document.createRange().createContextualFragment(bearing_symbol(j.bearing));
+    var cell = document.createElement('td');
+    cell.appendChild(cell_text);
+    row.appendChild(cell);
+
     var cell_text = document.createRange().createContextualFragment(bearing_ascii(j.bearing));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);
     row.appendChild(cell);
+
     var cell_text = document.createRange().createContextualFragment(euroscope_ascii(j.bearing));
     var cell = document.createElement('td');
     cell.appendChild(cell_text);

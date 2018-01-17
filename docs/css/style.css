@@ -1,3 +1,7 @@
+table.blueTable i[moon] {
+  color: #ddd;
+}
+
 table.blueTable {
     border: 1px solid #1C6EA4;
     background-color: #EEEEEE;
@@ -9,12 +13,41 @@ table.blueTable {
     border: 1px solid #AAAAAA;
     padding: 3px 2px;
   }
-  table.blueTable tbody td {
-    font-size: 15px;
-  }
   table.blueTable tr:nth-child(even) {
     background: #D0E4F5;
   }
+  table.blueTable tbody td {
+    font-size: 15px;
+  }
+  table.blueTable tr[tod='night'] {
+    background: #000;
+    color: #fff;
+  }
+  table.blueTable tr[tod='astro_twilight'] {
+    background: #224;
+    color: #fff;
+  }
+  table.blueTable tr[tod='nautical_twilight'] {
+    background: #226;
+    color: #fff;
+  }
+  table.blueTable tr[tod='civil_twilight'] {
+    background: #546;
+    color: #fff;
+  }
+  table.blueTable tr[tod='sunrise'] {
+    background: #c84;
+    color: #000;
+  }
+  table.blueTable tr[tod='golden_hour'] {
+    background: #db4;
+    color: #000;
+  }
+  table.blueTable tr[tod='day'] {
+    background: #bbf;
+    color: #000;
+  }
+
   table.blueTable thead {
     background: #1C6EA4;
     background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
